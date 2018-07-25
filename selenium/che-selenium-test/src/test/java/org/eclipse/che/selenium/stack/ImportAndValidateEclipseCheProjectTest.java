@@ -171,7 +171,6 @@ public class ImportAndValidateEclipseCheProjectTest {
     editor.typeTextIntoEditor(BACK_SPACE.toString());
     editor.waitMarkerInvisibility(ERROR, 1);
 
-
     // check the java file
     projectExplorer.openItemByPath(PATH_TO_JAVA_FILE);
     editor.waitActive();

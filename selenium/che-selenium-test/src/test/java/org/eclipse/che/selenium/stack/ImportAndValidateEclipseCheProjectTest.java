@@ -86,27 +86,17 @@ public class ImportAndValidateEclipseCheProjectTest {
     // TODO it is the workaround, delete it after resolve the issue
     // TODO https://github.com/eclipse/che/issues/10515
     // close unexpected error information dialog and click on the 'Save' button;
-
-    /*if (informationDialog.waitFormIsOpened()) {
-      informationDialog.waitFormToOpen();
-      informationDialog.clickOkBtn();
-      projectWizard.clickSaveButton();
-      loader.waitOnClosed();
-
-      if (informationDialog.waitFormIsOpened()) {
-        informationDialog.waitFormToOpen();
-        informationDialog.clickOkBtn();
-        projectWizard.clickSaveButton();
-        loader.waitOnClosed();
-      }
-    }*/
+    int counterErrorDialog = 0;
 
     while (informationDialog.waitFormIsOpened()) {
       informationDialog.waitFormToOpen();
       informationDialog.clickOkBtn();
       projectWizard.clickSaveButton();
+      counterErrorDialog++;
       loader.waitOnClosed();
     }
+
+    System.out.println("The error information dialog appeared " + counterErrorDialog + " times");
 
     projectWizard.waitCreateProjectWizardFormIsClosed();
     loader.waitOnClosed();
@@ -153,8 +143,8 @@ public class ImportAndValidateEclipseCheProjectTest {
     mavenPluginStatusBar.clickOnInfoPanel();
     mavenPluginStatusBar.waitResolveDependenciesFormToOpen();
 
-    // wait while are resolved dependencies
-    mavenPluginStatusBar.waitClosingInfoPanel(3600);
+    // wait while dependencies are resolved
+    mavenPluginStatusBar.waitClosingInfoPanel(4200);
     mavenPluginStatusBar.waitResolveDependenciesFormToClose();
   }
 }

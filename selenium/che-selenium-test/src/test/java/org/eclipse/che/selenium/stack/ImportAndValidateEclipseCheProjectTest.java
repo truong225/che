@@ -153,7 +153,7 @@ public class ImportAndValidateEclipseCheProjectTest {
   @Test(priority = 1)
   public void checkErrorMarkersInEditor() {
     // check an error marker in the ts file
-    projectExplorer.openItemByPath(PATH_TO_TS_FILE);
+    editor.selectTabByName("index.module.ts");
     editor.waitActive();
     editor.typeTextIntoEditor("q");
     editor.waitMarkerInPosition(ERROR, 1);
@@ -161,7 +161,7 @@ public class ImportAndValidateEclipseCheProjectTest {
     editor.waitMarkerInvisibility(ERROR, 1);
 
     // check an error marker in the the pom.xml file
-    projectExplorer.openItemByPath(PATH_TO_POM_FILE);
+    editor.selectTabByName("che-dashboard-war");
     editor.waitActive();
     editor.waitAllMarkersInvisibility(ERROR);
     editor.typeTextIntoEditor("q");
@@ -170,7 +170,7 @@ public class ImportAndValidateEclipseCheProjectTest {
     editor.waitMarkerInvisibility(ERROR, 1);
 
     // check an error marker in the java file
-    projectExplorer.openItemByPath(PATH_TO_JAVA_FILE);
+    editor.selectTabByName("CodenvyEditor");
     editor.waitActive();
     editor.waitAllMarkersInvisibility(ERROR);
     editor.setCursorToLine(12);

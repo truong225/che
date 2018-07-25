@@ -152,9 +152,7 @@ public class ImportAndValidateEclipseCheProjectTest {
 
   @Test(priority = 1)
   public void checkErrorMarkersInEditor() {
-    projectExplorer.waitItem(PROJECT_NAME);
-
-    // check the ts file
+    // check an error marker in the ts file
     projectExplorer.openItemByPath(PATH_TO_TS_FILE);
     editor.waitActive();
     editor.typeTextIntoEditor("q");
@@ -162,7 +160,7 @@ public class ImportAndValidateEclipseCheProjectTest {
     editor.typeTextIntoEditor(BACK_SPACE.toString());
     editor.waitMarkerInvisibility(ERROR, 1);
 
-    // check the pom.xml file
+    // check an error marker in the the pom.xml file
     projectExplorer.openItemByPath(PATH_TO_POM_FILE);
     editor.waitActive();
     editor.waitAllMarkersInvisibility(ERROR);
@@ -171,7 +169,7 @@ public class ImportAndValidateEclipseCheProjectTest {
     editor.typeTextIntoEditor(BACK_SPACE.toString());
     editor.waitMarkerInvisibility(ERROR, 1);
 
-    // check the java file
+    // check an error marker in the java file
     projectExplorer.openItemByPath(PATH_TO_JAVA_FILE);
     editor.waitActive();
     editor.waitAllMarkersInvisibility(ERROR);

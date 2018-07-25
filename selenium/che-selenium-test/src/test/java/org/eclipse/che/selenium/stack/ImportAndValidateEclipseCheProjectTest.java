@@ -87,7 +87,7 @@ public class ImportAndValidateEclipseCheProjectTest {
     // TODO https://github.com/eclipse/che/issues/10515
     // close unexpected error information dialog and click on the 'Save' button;
 
-    if (informationDialog.waitFormIsOpened()) {
+    /*if (informationDialog.waitFormIsOpened()) {
       informationDialog.waitFormToOpen();
       informationDialog.clickOkBtn();
       projectWizard.clickSaveButton();
@@ -99,6 +99,13 @@ public class ImportAndValidateEclipseCheProjectTest {
         projectWizard.clickSaveButton();
         loader.waitOnClosed();
       }
+    }*/
+
+    while (informationDialog.waitFormIsOpened()) {
+      informationDialog.waitFormToOpen();
+      informationDialog.clickOkBtn();
+      projectWizard.clickSaveButton();
+      loader.waitOnClosed();
     }
 
     projectWizard.waitCreateProjectWizardFormIsClosed();

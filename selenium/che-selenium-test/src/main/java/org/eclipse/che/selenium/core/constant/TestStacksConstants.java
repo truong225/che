@@ -14,6 +14,7 @@ package org.eclipse.che.selenium.core.constant;
 public enum TestStacksConstants {
   ANDROID("android-default", "Android"),
   JAVA("java-default", "Java"),
+  JAVA_CENTOS("stack-name-Java CentOS", "Java CentOS"),
   JAVA_MYSQL("java-mysql", "Java-MySQL"),
   BLANK("blank-default", "Blank"),
   BITNAMI_CODEIGNITER("bitnami-codeigniter", "Bitnami Codeigniter"),

@@ -23,7 +23,6 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.util.List;
 import org.eclipse.che.selenium.core.SeleniumWebDriver;
-import org.eclipse.che.selenium.core.TestGroup;
 import org.eclipse.che.selenium.core.client.TestProjectServiceClient;
 import org.eclipse.che.selenium.core.client.TestWorkspaceServiceClient;
 import org.eclipse.che.selenium.core.user.DefaultTestUser;
@@ -47,7 +46,6 @@ import org.testng.annotations.Test;
  * @author Sergey Skorik
  * @author Ihor Okhrimenko
  */
-@Test(groups = TestGroup.OPENSHIFT)
 public class WorkspacesListTest {
   private static final int BLANK_WS_MB = 2048;
   private static final int JAVA_WS_MB = 3072;

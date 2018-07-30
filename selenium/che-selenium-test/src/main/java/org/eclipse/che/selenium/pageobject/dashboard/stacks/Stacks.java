@@ -155,6 +155,14 @@ public class Stacks {
         By.xpath(format(Locators.STACK_ITEM_COMPONENTS_XPATH_PATTERN, stackName)));
   }
 
+  public Boolean stackComponentsContains(String stackName, String components) {
+    seleniumWebDriverHelper
+        .waitVisibilityAndGetText(
+            By.xpath(format(Locators.STACK_ITEM_COMPONENTS_XPATH_PATTERN, stackName)))
+        .contains(components);
+    return true;
+  }
+
   public void clickOnDeleteActionButton(String stackName) {
     seleniumWebDriverHelper.waitAndClick(
         By.xpath(format(Locators.STACK_ITEM_DELETE_BUTTON_XPATH_PATTERN, stackName)));

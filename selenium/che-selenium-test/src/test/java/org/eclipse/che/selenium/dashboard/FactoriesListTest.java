@@ -14,7 +14,6 @@ import static org.eclipse.che.commons.lang.NameGenerator.generate;
 import static org.testng.Assert.assertTrue;
 
 import com.google.inject.Inject;
-import org.eclipse.che.selenium.core.TestGroup;
 import org.eclipse.che.selenium.core.client.TestFactoryServiceClient;
 import org.eclipse.che.selenium.core.factory.FactoryTemplate;
 import org.eclipse.che.selenium.core.factory.TestFactoryInitializer;
@@ -25,7 +24,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-@Test(groups = TestGroup.OPENSHIFT)
 public class FactoriesListTest {
   private static final String FACTORY1_NAME = generate("factory1", 4);
   private static final String FACTORY2_NAME = generate("factory2", 4);

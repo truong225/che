@@ -13,7 +13,7 @@ package org.eclipse.che.selenium.dashboard;
 import static java.lang.String.format;
 import static org.eclipse.che.selenium.core.constant.TestStacksConstants.BLANK;
 import static org.eclipse.che.selenium.core.constant.TestStacksConstants.JAVA;
-import static org.eclipse.che.selenium.core.constant.TestStacksConstants.JAVA_MYSQL;
+import static org.eclipse.che.selenium.core.constant.TestStacksConstants.JAVA_CENTOS;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
@@ -21,7 +21,6 @@ import static org.testng.Assert.assertTrue;
 import com.google.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collections;
-import org.eclipse.che.selenium.core.TestGroup;
 import org.eclipse.che.selenium.pageobject.dashboard.Dashboard;
 import org.eclipse.che.selenium.pageobject.dashboard.stacks.StackDetails;
 import org.eclipse.che.selenium.pageobject.dashboard.stacks.Stacks;
@@ -31,7 +30,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /** @author Skoryk Serhii */
-@Test(groups = TestGroup.OPENSHIFT)
 public class StacksListTest {
 
   @Inject private StackDetails stackDetails;
@@ -79,12 +77,12 @@ public class StacksListTest {
     assertEquals(
         stacks.getStackDescription(JAVA.getName()),
         "Default Java Stack with JDK 8, Maven and Tomcat.");
-    assertEquals(stacks.getStackComponents(JAVA.getName()), "Ubuntu, JDK, Maven, Tomcat");
+    assertTrue(stacks.stackComponentsContains(JAVA.getName(), "JDK, Maven, Tomcat"));
   }
 
   @Test
   public void checkStacksSelectingByCheckbox() {
-    String stackName = createDuplicatedStack(JAVA_MYSQL.getName());
+    String stackName = createDuplicatedStack(JAVA_CENTOS.getName());
 
     // select stacks by checkbox and check it is selected
     stacks.selectStackByCheckbox(stackName);
@@ -106,19 +104,19 @@ public class StacksListTest {
     // search stacks by a full name
     stacks.typeToSearchInput(JAVA.getName());
     assertTrue(stacks.isStackItemExisted(JAVA.getName()));
-    assertTrue(stacks.isStackItemExisted(JAVA_MYSQL.getName()));
+    assertTrue(stacks.isStackItemExisted(JAVA_CENTOS.getName()));
     assertFalse(stacks.isStackItemExisted(BLANK.getName()));
 
     stacks.typeToSearchInput(BLANK.getName());
     assertTrue(stacks.isStackItemExisted(BLANK.getName()));
     assertFalse(stacks.isStackItemExisted(JAVA.getName()));
-    assertFalse(stacks.isStackItemExisted(JAVA_MYSQL.getName()));
+    assertFalse(stacks.isStackItemExisted(JAVA_CENTOS.getName()));
 
     // search stacks by a part name
     stacks.typeToSearchInput(BLANK.getName().substring(BLANK.getName().length() / 2));
     assertTrue(stacks.isStackItemExisted(BLANK.getName()));
     assertFalse(stacks.isStackItemExisted(JAVA.getName()));
-    assertFalse(stacks.isStackItemExisted(JAVA_MYSQL.getName()));
+    assertFalse(stacks.isStackItemExisted(JAVA_CENTOS.getName()));
   }
 
   @Test

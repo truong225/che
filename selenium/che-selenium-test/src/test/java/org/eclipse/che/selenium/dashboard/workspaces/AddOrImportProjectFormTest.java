@@ -10,14 +10,15 @@
  */
 package org.eclipse.che.selenium.dashboard.workspaces;
 
-import static org.eclipse.che.api.core.model.workspace.WorkspaceStatus.RUNNING;
 import static org.eclipse.che.commons.lang.NameGenerator.generate;
+import static org.eclipse.che.selenium.pageobject.dashboard.NewWorkspace.Stack.BLANK;
+import static org.eclipse.che.selenium.pageobject.dashboard.NewWorkspace.Stack.JAVA;
+import static org.eclipse.che.selenium.pageobject.dashboard.NewWorkspace.Stack.JAVA_CENTOS;
 import static org.testng.Assert.assertEquals;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.inject.Inject;
 import org.eclipse.che.selenium.core.SeleniumWebDriver;
-import org.eclipse.che.selenium.core.TestGroup;
 import org.eclipse.che.selenium.core.client.TestWorkspaceServiceClient;
 import org.eclipse.che.selenium.core.user.DefaultTestUser;
 import org.eclipse.che.selenium.core.webdriver.SeleniumWebDriverHelper;
@@ -26,7 +27,6 @@ import org.eclipse.che.selenium.pageobject.ProjectExplorer;
 import org.eclipse.che.selenium.pageobject.dashboard.AddOrImportForm;
 import org.eclipse.che.selenium.pageobject.dashboard.Dashboard;
 import org.eclipse.che.selenium.pageobject.dashboard.NewWorkspace;
-import org.eclipse.che.selenium.pageobject.dashboard.NewWorkspace.Stack;
 import org.eclipse.che.selenium.pageobject.dashboard.ProjectOptions;
 import org.eclipse.che.selenium.pageobject.dashboard.workspaces.WorkspaceOverview;
 import org.eclipse.che.selenium.pageobject.dashboard.workspaces.Workspaces;
@@ -36,7 +36,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /** @author Ihor Okhrimenko */
-@Test(groups = TestGroup.OPENSHIFT)
 public class AddOrImportProjectFormTest {
 
   private static final String NAME_WITH_MAX_AVAILABLE_LENGTH = generate("name", 124);
@@ -125,13 +124,14 @@ public class AddOrImportProjectFormTest {
     workspaces.waitToolbarTitleName();
     workspaces.clickOnAddWorkspaceBtn();
     newWorkspace.waitPageLoad();
+    newWorkspace.clickOnAllStacksTab();
   }
 
   @Test
   public void checkOfCheckboxes() {
     // preparing
     newWorkspace.waitPageLoad();
-    newWorkspace.selectStack(Stack.JAVA);
+    newWorkspace.selectStack(JAVA);
     addOrImportForm.clickOnAddOrImportProjectButton();
     addOrImportForm.waitAddOrImportFormOpened();
     addOrImportForm.waitSamplesButtonSelected();
@@ -177,7 +177,7 @@ public class AddOrImportProjectFormTest {
   public void checkProjectSamples() {
     // preparing
     newWorkspace.waitPageLoad();
-    newWorkspace.selectStack(Stack.JAVA);
+    newWorkspace.selectStack(JAVA);
     addOrImportForm.clickOnAddOrImportProjectButton();
     addOrImportForm.waitAddOrImportFormOpened();
     addOrImportForm.waitSamplesButtonSelected();
@@ -325,8 +325,8 @@ public class AddOrImportProjectFormTest {
   public void checkProjectsBlank() throws Exception {
     // preparing
     newWorkspace.waitPageLoad();
-    newWorkspace.selectStack(Stack.BLANK);
-    newWorkspace.waitStackSelected(Stack.BLANK);
+    newWorkspace.selectStack(BLANK);
+    newWorkspace.waitStackSelected(BLANK);
     addOrImportForm.clickOnAddOrImportProjectButton();
     addOrImportForm.waitAddOrImportFormOpened();
     addOrImportForm.clickOnBlankButton();
@@ -380,16 +380,6 @@ public class AddOrImportProjectFormTest {
     addOrImportForm.typeToGitUrlField(BLANK_DEFAULT_URL);
     addOrImportForm.clickOnAddButton();
     checkProjectTabAppearanceAndFields(BLANK_PROJECT_NAME, "", BLANK_DEFAULT_URL);
-
-    addOrImportForm.clickOnAddOrImportProjectButton();
-    addOrImportForm.waitAddOrImportFormOpened();
-
-    addOrImportForm.clickOnGitHubButton();
-    newWorkspace.setMachineRAM("dev-machine", 5.0);
-    newWorkspace.typeWorkspaceName(WORKSPACE_NAME);
-    newWorkspace.clickOnCreateButtonAndOpenInIDE();
-    testWorkspaceServiceClient.waitStatus(WORKSPACE_NAME, defaultTestUser.getName(), RUNNING);
-    dashboard.selectWorkspacesItemOnDashboard();
   }
 
   @Test(priority = 3)
@@ -397,17 +387,17 @@ public class AddOrImportProjectFormTest {
     // check that name field saves it state after choosing another stack
     newWorkspace.waitPageLoad();
     newWorkspace.typeWorkspaceName(TEST_BLANK_WORKSPACE_NAME);
-    newWorkspace.selectStack(Stack.DOT_NET);
-    newWorkspace.waitStackSelected(Stack.DOT_NET);
+    newWorkspace.selectStack(JAVA_CENTOS);
+    newWorkspace.waitStackSelected(JAVA_CENTOS);
     assertEquals(newWorkspace.getWorkspaceNameValue(), TEST_BLANK_WORKSPACE_NAME);
 
-    newWorkspace.selectStack(Stack.JAVA);
-    newWorkspace.waitStackSelected(Stack.JAVA);
+    newWorkspace.selectStack(JAVA);
+    newWorkspace.waitStackSelected(JAVA);
     assertEquals(newWorkspace.getWorkspaceNameValue(), TEST_BLANK_WORKSPACE_NAME);
 
     // add workspace with specified "RAM" value
-    newWorkspace.setMachineRAM("dev-machine", 3.0);
-    newWorkspace.waitRamValue("dev-machine", 3.0);
+    newWorkspace.setMachineRAM("dev-machine", 2.5);
+    newWorkspace.waitRamValue("dev-machine", 2.5);
 
     addOrImportForm.clickOnAddOrImportProjectButton();
     addOrImportForm.waitAddOrImportFormOpened();
@@ -436,16 +426,6 @@ public class AddOrImportProjectFormTest {
 
     prepareJavaWorkspaceAndOpenCreateDialog(TEST_JAVA_WORKSPACE_NAME_EDIT);
     newWorkspace.waitWorkspaceCreatedDialogIsVisible();
-    newWorkspace.clickOnOpenInIDEButton();
-    testWorkspaceServiceClient.waitStatus(
-        TEST_JAVA_WORKSPACE_NAME_EDIT, defaultTestUser.getName(), RUNNING);
-    seleniumWebDriverHelper.switchToIdeFrameAndWaitAvailability();
-    projectExplorer.waitProjectExplorer();
-    projectExplorer.waitItem(SPRING_SAMPLE_NAME);
-    projectExplorer.expandPathInProjectExplorerAndOpenFile(
-        SPRING_SAMPLE_NAME + "/src/main/java/org.eclipse.che.examples", "GreetingController.java");
-    editor.waitActive();
-    editor.waitTextIntoEditor(EXPECTED_TEXT_IN_EDITOR);
   }
 
   private void waitAllCheckboxesDisabled() {
@@ -482,8 +462,8 @@ public class AddOrImportProjectFormTest {
     newWorkspace.waitPageLoad();
     newWorkspace.typeWorkspaceName(workspaceName);
 
-    newWorkspace.selectStack(Stack.JAVA);
-    newWorkspace.waitStackSelected(Stack.JAVA);
+    newWorkspace.selectStack(JAVA_CENTOS);
+    newWorkspace.waitStackSelected(JAVA_CENTOS);
 
     addOrImportForm.clickOnAddOrImportProjectButton();
     addOrImportForm.waitAddOrImportFormOpened();

@@ -57,6 +57,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /** @author Ihor Okhrimenko */
+@Test(groups = TestGroup.OPENSHIFT)
 public class NewWorkspacePageTest {
   private static final String EXPECTED_WORKSPACE_NAME_PREFIX = "wksp-";
   private static final String MACHINE_NAME = "dev-machine";

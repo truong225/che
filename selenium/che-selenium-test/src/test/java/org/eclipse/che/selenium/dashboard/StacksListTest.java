@@ -21,6 +21,7 @@ import static org.testng.Assert.assertTrue;
 import com.google.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collections;
+import org.eclipse.che.selenium.core.TestGroup;
 import org.eclipse.che.selenium.pageobject.dashboard.Dashboard;
 import org.eclipse.che.selenium.pageobject.dashboard.stacks.StackDetails;
 import org.eclipse.che.selenium.pageobject.dashboard.stacks.Stacks;
@@ -30,6 +31,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /** @author Skoryk Serhii */
+@Test(groups = TestGroup.OPENSHIFT)
 public class StacksListTest {
 
   @Inject private StackDetails stackDetails;

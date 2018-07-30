@@ -17,6 +17,7 @@ import static org.testng.Assert.assertEquals;
 import com.google.common.collect.ImmutableMap;
 import com.google.inject.Inject;
 import org.eclipse.che.selenium.core.SeleniumWebDriver;
+import org.eclipse.che.selenium.core.TestGroup;
 import org.eclipse.che.selenium.core.client.TestWorkspaceServiceClient;
 import org.eclipse.che.selenium.core.user.DefaultTestUser;
 import org.eclipse.che.selenium.core.webdriver.SeleniumWebDriverHelper;
@@ -35,6 +36,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /** @author Ihor Okhrimenko */
+@Test(groups = TestGroup.OPENSHIFT)
 public class AddOrImportProjectFormTest {
 
   private static final String NAME_WITH_MAX_AVAILABLE_LENGTH = generate("name", 124);

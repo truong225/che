@@ -29,6 +29,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.inject.Inject;
 import java.net.URL;
 import java.nio.file.Paths;
+import org.eclipse.che.selenium.core.TestGroup;
 import org.eclipse.che.selenium.core.client.TestProjectServiceClient;
 import org.eclipse.che.selenium.core.client.TestWorkspaceServiceClient;
 import org.eclipse.che.selenium.core.user.DefaultTestUser;
@@ -52,6 +53,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /** @author Skoryk Serhii */
+@Test(groups = TestGroup.OPENSHIFT)
 public class WorkspaceDetailsSingleMachineTest {
   private static final String PROJECT_NAME = generate("project", 4);
   private static final ImmutableMap<String, Boolean> EXPECTED_INSTALLERS =

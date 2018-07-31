@@ -21,9 +21,6 @@ import com.google.inject.Inject;
 import org.eclipse.che.selenium.core.SeleniumWebDriver;
 import org.eclipse.che.selenium.core.client.TestWorkspaceServiceClient;
 import org.eclipse.che.selenium.core.user.DefaultTestUser;
-import org.eclipse.che.selenium.core.webdriver.SeleniumWebDriverHelper;
-import org.eclipse.che.selenium.pageobject.CodenvyEditor;
-import org.eclipse.che.selenium.pageobject.ProjectExplorer;
 import org.eclipse.che.selenium.pageobject.dashboard.AddOrImportForm;
 import org.eclipse.che.selenium.pageobject.dashboard.Dashboard;
 import org.eclipse.che.selenium.pageobject.dashboard.NewWorkspace;
@@ -96,11 +93,8 @@ public class AddOrImportProjectFormTest {
   @Inject private Workspaces workspaces;
   @Inject private NewWorkspace newWorkspace;
   @Inject private TestWorkspaceServiceClient testWorkspaceServiceClient;
-  @Inject private SeleniumWebDriverHelper seleniumWebDriverHelper;
   @Inject private SeleniumWebDriver seleniumWebDriver;
   @Inject private WorkspaceOverview workspaceOverview;
-  @Inject private ProjectExplorer projectExplorer;
-  @Inject private CodenvyEditor editor;
   @Inject private ProjectOptions projectOptions;
   @Inject private AddOrImportForm addOrImportForm;
 
